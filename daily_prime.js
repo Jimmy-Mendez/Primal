@@ -1,0 +1,1 @@
+export const daily_prime = 22441
