@@ -25,8 +25,6 @@ function initBoard() {
     }
 }
 
-initBoard()
-
 document.addEventListener("keyup", (e) => {
 
     if (guessesRemaining === 0) {
@@ -106,12 +104,12 @@ function checkGuess () {
     }
 
     if (guessString.length != 5) {
-        alert("Not enough numbers!")
+        toastr.error("Not enough numbers!")
         return
     }
 
     if (!primes.includes(parseInt(guessString))) {
-        alert("Not a 5 digit prime!")
+        toastr.error("Not a 5 digit prime!")
         return
     }
 
@@ -151,7 +149,7 @@ function checkGuess () {
     }
 
     if (guessString === rightGuessString) {
-        alert("You guessed right! Game over!")
+        toastr.success("You guessed right! Game over!")
         guessesRemaining = 0
         return
     } else {
@@ -160,8 +158,8 @@ function checkGuess () {
         nextNumber = 0;
 
         if (guessesRemaining === 0) {
-            alert("You've run out of guesses! Game over!")
-            alert(`The right word was: "${rightGuessString}"`)
+            toastr.error("You've run out of guesses! Game over!")
+            toastr.error(`The right word was: "${rightGuessString}"`)
         }
     }
 }
@@ -201,3 +199,5 @@ const animateCSS = (element, animation, prefix = 'animate__') =>
 
     node.addEventListener('animationend', handleAnimationEnd, {once: true});
 });
+
+initBoard();
