@@ -123,18 +123,18 @@ function checkGuess () {
 }
 
 function insertNumber (pressedKey) {
-    if (nextLetter === 5) {
+    if (nextNumber === 5) {
         return
     }
     pressedKey = pressedKey.toLowerCase()
 
-    let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining]
-    let box = row.children[nextLetter]
+    let row = document.getElementsByClassName("number-row")[6 - guessesRemaining]
+    let box = row.children[nextNumber]
     animateCSS(box, "pulse")
     box.textContent = pressedKey
     box.classList.add("filled-box")
     currentGuess.push(pressedKey)
-    nextLetter += 1
+    nextNumber += 1
 }
 
 const animateCSS = (element, animation, prefix = 'animate__') =>
