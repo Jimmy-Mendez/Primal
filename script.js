@@ -71,40 +71,44 @@ function checkGuess () {
         return
     }
 
-    
+    let numbers = []
+    let numberColors = []
+    let boxes = []
+
     for (let i = 0; i < 5; i++) {
-        let numberColor = ''
-        let box = row.children[i]
-        let number = currentGuess[i]
-        
-        let numberPosition = rightGuess.indexOf(currentGuess[i])
+        numbers.push(currentGuess[i])
+        boxes.push(row.children[i])
 
-        if (numberPosition === -1) {
-            numberColor = 'grey' // number not in word
-        } else {
-            // now, number is definitely in word
-            // if number index and right guess index are the same
-            // number is in the right position 
-            if (currentGuess[i] === rightGuess[i]) {
-                // shade green 
-                numberColor = 'green'
-            } else {
-                // shade box yellow
-                numberColor = 'yellow'
-            }
-
-            rightGuess[numberPosition] = "#"
+        if (currentGuess[i] === rightGuess[i]){
+            numberColors[i] = 'green'
+            rightGuess[i] = "#"
         }
+        else{
+            numberColors[i] = 'grey'
+        }
+    }
 
+    for (let i = 0; i < 5; i++) {
+        let indexNumber = rightGuess.indexOf(currentGuess[i])
+        if (indexNumber !== -1){
+            numberColors[i] = 'yellow'
+            rightGuess[i] = "#"
+        }
+    }
+
+    for (let i = 0; i < 5; i++) {
         let delay = 250 * i
         setTimeout(()=> {
             //flip box
-            animateCSS(box, 'flipInX')
+            animateCSS(boxes[i], 'flipInX')
             //shade box
-            box.style.backgroundColor = numberColor
-            shadeKeyBoard(number, numberColor)
+            boxes[i].style.backgroundColor = numberColors[i]
+            shadeKeyBoard(numbers[i], numberColors[i])
         }, delay)
     }
+
+
+
 
     if (guessString === rightGuessString) {
         toastr.success("You guessed right! Game over!")
