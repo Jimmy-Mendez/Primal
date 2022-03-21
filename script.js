@@ -25,56 +25,6 @@ function initBoard() {
     }
 }
 
-document.addEventListener("keyup", (e) => {
-
-    if (guessesRemaining === 0) {
-        return
-    }
-
-    let pressedKey = String(e.key)
-    if (pressedKey === "Backspace" && nextNumber !== 0) {
-        deleteNumber()
-        return
-    }
-
-    if (pressedKey === "Enter") {
-        checkGuess()
-        return
-    }
-
-    let found = pressedKey.match(/[\d]/)
-    if (!found || found.length > 1) {
-        return
-    } else {
-        insertNumber(pressedKey)
-    }
-})
-
-function insertNumber (pressedKey) {
-    if (nextLetter === 5) {
-        return
-    }
-    pressedKey = pressedKey.toLowerCase()
-
-    let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining]
-    let box = row.children[nextLetter]
-    animateCSS(box, "pulse")
-    box.textContent = pressedKey
-    box.classList.add("filled-box")
-    currentGuess.push(pressedKey)
-    nextLetter += 1
-}
-
-function deleteNumber () {
-    let row = document.getElementsByClassName("number-row")[6 - guessesRemaining]
-    let box = row.children[nextNumber - 1]
-    box.textContent = ""
-    box.classList.remove("filled-box")
-    currentGuess.pop()
-    nextNumber -= 1
-}
-
-
 function shadeKeyBoard(number, color) {
     for (const elem of document.getElementsByClassName("keyboard-button")) {
         if (elem.textContent === number) {
@@ -93,6 +43,14 @@ function shadeKeyBoard(number, color) {
     }
 }
 
+function deleteNumber () {
+    let row = document.getElementsByClassName("number-row")[6 - guessesRemaining]
+    let box = row.children[nextNumber - 1]
+    box.textContent = ""
+    box.classList.remove("filled-box")
+    currentGuess.pop()
+    nextNumber -= 1
+}
 
 function checkGuess () {
     let row = document.getElementsByClassName("number-row")[6 - guessesRemaining]
@@ -164,21 +122,20 @@ function checkGuess () {
     }
 }
 
-
-document.getElementById("keyboard-cont").addEventListener("click", (e) => {
-    const target = e.target
-    
-    if (!target.classList.contains("keyboard-button")) {
+function insertNumber (pressedKey) {
+    if (nextLetter === 5) {
         return
     }
-    let key = target.textContent
+    pressedKey = pressedKey.toLowerCase()
 
-    if (key === "Del") {
-        key = "Backspace"
-    } 
-
-    document.dispatchEvent(new KeyboardEvent("keyup", {'key': key}))
-})
+    let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining]
+    let box = row.children[nextLetter]
+    animateCSS(box, "pulse")
+    box.textContent = pressedKey
+    box.classList.add("filled-box")
+    currentGuess.push(pressedKey)
+    nextLetter += 1
+}
 
 const animateCSS = (element, animation, prefix = 'animate__') =>
   // We create a Promise and return it
@@ -199,5 +156,47 @@ const animateCSS = (element, animation, prefix = 'animate__') =>
 
     node.addEventListener('animationend', handleAnimationEnd, {once: true});
 });
+
+document.addEventListener("keyup", (e) => {
+
+    if (guessesRemaining === 0) {
+        return
+    }
+
+    let pressedKey = String(e.key)
+    if (pressedKey === "Backspace" && nextNumber !== 0) {
+        deleteNumber()
+        return
+    }
+
+    if (pressedKey === "Enter") {
+        checkGuess()
+        return
+    }
+
+    let found = pressedKey.match(/[\d]/)
+    if (!found || found.length > 1) {
+        return
+    } else {
+        insertNumber(pressedKey)
+    }
+})
+
+
+
+document.getElementById("keyboard-cont").addEventListener("click", (e) => {
+    const target = e.target
+    
+    if (!target.classList.contains("keyboard-button")) {
+        return
+    }
+    let key = target.textContent
+
+    if (key === "Del") {
+        key = "Backspace"
+    } 
+
+    document.dispatchEvent(new KeyboardEvent("keyup", {'key': key}))
+})
 
 initBoard();
