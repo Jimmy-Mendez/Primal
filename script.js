@@ -90,9 +90,9 @@ function checkGuess () {
 
     for (let i = 0; i < 5; i++) {
         let indexNumber = rightGuess.indexOf(currentGuess[i])
-        if (indexNumber !== -1){
+        if (indexNumber !== -1 && numberColors[i] !== 'green'){
             numberColors[i] = 'yellow'
-            rightGuess[i] = "#"
+            rightGuess[indexNumber] = "#"
         }
     }
 
