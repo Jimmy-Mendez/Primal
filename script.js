@@ -7,6 +7,7 @@ let currentGuess = [];
 let nextNumber = 0;
 let rightGuessString = String(daily_prime)
 console.log(rightGuessString)
+getPrime()
 
 function initBoard() {
     let board = document.getElementById("game-board");
