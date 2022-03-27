@@ -1,14 +1,12 @@
-import { daily_prime } from "./daily_prime.js";
 import { primes } from "./prime_list.js";
 
 const NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextNumber = 0;
-let rightGuessString = String(daily_prime)
-console.log(rightGuessString)
 let daily_prime_i = getPrime()
-console.log(primes[daily_prime_i])
+let rightGuessString = String(primes[daily_prime_i])
+console.log(rightGuessString)
 
 function initBoard() {
     let board = document.getElementById("game-board");
@@ -146,14 +144,13 @@ function insertNumber (pressedKey) {
 function getPrime(){
     const d = new Date()
     var seed_1 = d.getDate()
-    var seed_2 = d.getFullYear()
-    var seed = String(seed_1 * seed_2)
+    var seed_2 = d.getMonth()
+    var seed_3 = d.getFullYear()
+    var seed = String(seed_1 + (seed_2 * seed_3))  
     var new_seed = xmur3(seed)
     var rand = (sfc32(new_seed(), new_seed(), new_seed(), new_seed()));
     var rand_index = parseInt(rand()*100000)
-    console.log(rand_index)
     rand_index = rand_index  % 8363
-    console.log(rand_index)
     return rand_index
 }
 
