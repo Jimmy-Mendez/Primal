@@ -148,8 +148,11 @@ function getPrime(){
     var seed_2 = d.getFullYear()
     var seed = String(seed_1 * seed_2)
     var new_seed = xmur3(seed)
-    var rand = sfc32(new_seed(), new_seed(), new_seed(), new_seed());
-    console.log(rand)
+    var rand = (sfc32(new_seed(), new_seed(), new_seed(), new_seed()));
+    var rand_index = rand()
+    rand_index = rand_index  % 8363
+    console.log(rand_index)
+    return rand_index
 }
 
 function xmur3(str) {
