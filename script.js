@@ -7,7 +7,8 @@ let currentGuess = [];
 let nextNumber = 0;
 let rightGuessString = String(daily_prime)
 console.log(rightGuessString)
-getPrime()
+let daily_prime_i = getPrime()
+console.log(primes[daily_prime_i])
 
 function initBoard() {
     let board = document.getElementById("game-board");
@@ -149,7 +150,7 @@ function getPrime(){
     var seed = String(seed_1 * seed_2)
     var new_seed = xmur3(seed)
     var rand = (sfc32(new_seed(), new_seed(), new_seed(), new_seed()));
-    var rand_index = rand()
+    var rand_index = parseInt(rand()*100000)
     console.log(rand_index)
     rand_index = rand_index  % 8363
     console.log(rand_index)
