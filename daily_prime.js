@@ -1,1 +1,1 @@
-export const daily_prime = 22961
+export const daily_prime = 40609
