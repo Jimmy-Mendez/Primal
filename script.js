@@ -150,6 +150,7 @@ function getPrime(){
     var new_seed = xmur3(seed)
     var rand = (sfc32(new_seed(), new_seed(), new_seed(), new_seed()));
     var rand_index = rand()
+    console.log(rand_index)
     rand_index = rand_index  % 8363
     console.log(rand_index)
     return rand_index
